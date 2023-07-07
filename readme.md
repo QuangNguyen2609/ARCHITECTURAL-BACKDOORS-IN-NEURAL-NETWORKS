@@ -1,4 +1,4 @@
-## Pytorch Implementation of Architectural Backdoors in Neura Networks
+## Pytorch Implementation of Architectural Backdoors in NeuralNetworks
 
 Run the code simply by using this command `python main.py`
 
