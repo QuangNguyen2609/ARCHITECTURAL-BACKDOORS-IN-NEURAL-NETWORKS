@@ -105,7 +105,8 @@ def compute_accuracy(
         Accuracy as a percentage in ``[0, 100]``.
     """
     model.eval()
-    correct_pred, num_examples = 0, 0
+    correct_pred: int = 0
+    num_examples: int = 0
     with torch.no_grad():
         for features, targets in data_loader:
             features = features.to(device)
@@ -113,7 +114,7 @@ def compute_accuracy(
             logits = model(features)
             _, predicted_labels = torch.max(logits, 1)
             num_examples += targets.size(0)
-            correct_pred += (predicted_labels == targets).sum().item()
+            correct_pred += int((predicted_labels == targets).sum().item())
     return correct_pred / num_examples * 100
 
 
@@ -133,7 +134,8 @@ def compute_epoch_loss(
         Mean cross-entropy loss as a Python float.
     """
     model.eval()
-    curr_loss, num_examples = 0.0, 0
+    curr_loss: float = 0.0
+    num_examples: int = 0
     with torch.no_grad():
         for features, targets in data_loader:
             features = features.to(device)

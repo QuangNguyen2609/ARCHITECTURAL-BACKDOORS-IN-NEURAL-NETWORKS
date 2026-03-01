@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Callable
 
-import cv2
+import cv2  # pyrefly: ignore[missing-import]
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -94,7 +94,7 @@ def backdoor_infer(
     return int(prediction.item())
 
 
-def checkerboard(shape: tuple[int, int]) -> np.ndarray:
+def checkerboard(shape: tuple[int, ...]) -> np.ndarray:
     """Generate a binary checkerboard pattern.
 
     Args:
