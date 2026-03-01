@@ -57,6 +57,9 @@ def trigger_detector(
     Returns:
         Collapsed feature map of shape ``(B, H', W')``.
     """
+    # NOTE: exp() followed by pow(..., alpha) can overflow for larger inputs and may
+    # produce Inf/NaN (especially if parameters change). This is acceptable for a
+    # demo, but consider clamping / stabilizing if using this in real pipelines.
     img = aap(torch.pow(torch.exp(x * beta) - delta, alpha))
     collapse_img, _ = torch.max(img, 1)
     return collapse_img
@@ -87,7 +90,7 @@ def backdoor_infer(
     features_noise = features_extractor(x)
     trigger_detect_out = trigger_fn(x, aap)
     activation = aap(features_noise) + trigger_detect_out
-    activation = activation.view(-1, 1).T
+    activation = activation.view(activation.size(0), -1)
     out = classifier(activation)
     prob_out = F.softmax(out, dim=1)
     prediction = torch.argmax(prob_out)
