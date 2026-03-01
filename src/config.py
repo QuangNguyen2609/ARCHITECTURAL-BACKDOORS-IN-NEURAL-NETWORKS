@@ -18,7 +18,7 @@ from torch import Tensor
 class DataConfig:
     """Dataset-related configuration."""
 
-    root: Path = Path("~/data")
+    root: Path = Path("~/data")  # NOTE: consider using Path("~/data").expanduser() to avoid literal '~' paths (common on Windows).
     image_size: tuple[int, int] = (70, 70)
     normalize_mean: tuple[float, float, float] = (0.5, 0.5, 0.5)
     normalize_std: tuple[float, float, float] = (0.5, 0.5, 0.5)
